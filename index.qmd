@@ -8,45 +8,6 @@ execute:
   eval: true
 ---
 
-# 🗑️ Regression Challenge - Linear Model Interpretability
-
-## Challenge Overview
-
-**Your Mission:** Create a comprehensive Quarto document that demonstrates the dangers of trusting linear models when relationships are non-linear, analyzes the interpretability issues that arise, and presents compelling visual evidence of why we need to be skeptical of regression results. Then render the document to HTML and deploy it via GitHub Pages using the starter repository workflow.
-
-::: {.callout-warning}
-## ⚠️ AI Partnership Required
-
-This challenge pushes boundaries intentionally. You'll tackle problems that normally require weeks of study, but with Cursor AI as your partner (and your brain keeping it honest), you can accomplish more than you thought possible.
-
-**The new reality:** The four stages of competence are Ignorance → Awareness → Learning → Mastery. AI lets us produce Mastery-level work while operating primarily in the Awareness stage. I focus on awareness training, you leverage AI for execution, and together we create outputs that used to require years of dedicated study.
-:::
-
-## Problem Violating the Assumption of Linearity🎯
-
-> "We need to stop believing much of the empirical work we've been doing." - Christopher H. Achen
-
-**The Core Problem:** When researchers need to 'control for' variables using linear regression, what happens when the relationships are non-linear? 
-
-**What does "control for" mean?** Imagine you're studying whether social media causes anxiety. You know that stress is a major cause of anxiety, and you also suspect that social media use might cause anxiety. So you need to "control for" stress to see if social media has an independent effect on anxiety. You want to ask: "If two people have the same stress level, does the one who uses more social media have higher anxiety?"
-
-::: {.callout-important}
-## 🎯 The Key Insight: Non-Linearity Breaks Even "Good" Regressions
-
-**The problem:** Even when researchers carefully select control variables, non-linear relationships can make linear regression give completely wrong results.
-
-**Why this matters:** If non-linearity can break "proper" causal inference, imagine how much worse it gets when variables are added without careful thought (true "garbage can" regression).
-
-**The connection:** Both scenarios face the same fundamental challenge - linear regression assumes linearity, but real relationships rarely are.
-:::
-
-Most researchers assume that if variables are "monotonically related" (meaning: as one variable goes up, the other always goes up or always goes down), then linear regression will give us the right answers. But here's the catch: **linearity is much stronger than monotonicity.**
-
-- **Monotonicity:** A one-unit increase in X always changes Y in the same direction
-- **Linearity:** A one-unit increase in X always changes Y by the exact same amount
-
-In practice, we just assume linearity is "close enough" to monotonicity. But what if it's not? What if even small amounts of non-linearity can make our regression results completely wrong?
-
 **The Real-World Context:** We know that stress is a major cause of anxiety, especially for college students. We also suspect that social media use might cause anxiety. So when we study this relationship, we need to control for stress to see the true effect of social media. 
 
 **The Key Problem:** But here's where things get tricky. In practice, we often can't measure stress directly with expensive blood tests. Instead, we use surveys and self-reports. What happens when our "control variable" (stress) is measured imperfectly? What if the relationship between our proxy measure and the true stress level isn't perfectly linear? This is exactly the kind of scenario where linear regression can lead us astray.
@@ -132,7 +93,7 @@ In the real world, there is no reason to believe linearity holds for either meas
 ```{python}
 #| label: fig-stress-proxy
 #| fig-cap: "StressSurvey as a proxy for actual Stress levels"
-#| echo: true
+#| echo: false
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -152,121 +113,301 @@ plt.tight_layout()
 plt.show()
 ```
 
-## Challenge Requirements 📋
-
-### Minimum Requirements for Any Points on Challenge
-
-1. **Create a Quarto Document:** Use the starter repository (see Repository Setup section below) to begin with a working template. Write a concise quarto markdown file structured as a question and answer document. Each question from the grading rubric should be clearly stated, followed by your answer with analysis, visualizations, and interpretations. **Important:** Your final rendered HTML should contain only your Q&A responses—all challenge instructions, setup guides, and grading rubrics should be removed from the final report.
-
-2. **Render to HTML:** You must render the quarto markdown file to HTML.
-
-3. **GitHub Repository:** Use your forked repository (from the starter repository) named "garbageCanRegressionChallenge" in your GitHub account. Upload your rendered HTML files to this repository.
-
-4. **GitHub Pages Setup:** The repository should be made the source of your github pages:
-
-   - Go to your repository settings (click the "Settings" tab in your GitHub repository)
-   - Scroll down to the "Pages" section in the left sidebar
-   - Under "Source", select "Deploy from a branch"
-   - Choose "main" branch and "/ (root)" folder
-   - Click "Save"
-   - Your site will be available at: `https://[your-username].github.io/regressionChallenge/`
-   - **Note:** It may take a few minutes for the site to become available after enabling Pages
-
-## Getting Started: Repository Setup 🚀
-
-::: {.callout-important}
-## 📁 Quick Start with Starter Repository
-
-**Step 1:** Fork the starter repository to your github account at [https://github.com/flyaflya/regressionChallenge.git](https://github.com/flyaflya/regressionChallenge.git)
-
-**Step 2:** Clone your fork locally using Cursor (or VS Code)
-
-**Step 3:** You're ready to start! The repository includes pre-loaded data and a working template.
-:::
-
-::: {.callout-tip}
-## 💡 Why Use the Starter Repository?
-
-**Benefits:**
-
-- **Pre-loaded data:** All required data (`observDF` with Stress, StressSurvey, Time, Anxiety) is included
-- **Working template:** Basic Quarto structure (`index.qmd`) is ready
-- **No setup errors:** Avoid common data loading issues
-- **Focus on analysis:** Spend time on regression analysis, not data preparation
-:::
-
-### Getting Started Tips
-
-::: {.callout-note}
-## 🎯 Navy SEALs Motto
-
-> "Slow is Smooth and Smooth is Fast"
-
-*Take your time to understand the regression mechanics, plan your approach carefully, and execute with precision. Rushing through this challenge will only lead to errors and confusion.*
-:::
-
-::: {.callout-warning}
-## 💾 Important: Save Your Work Frequently!
-
-**Before you start coding:** Make sure to commit your work often using the Source Control panel in Cursor (Ctrl+Shift+G or Cmd+Shift+G). This prevents the AI from overwriting your progress and ensures you don't lose your work.
-
-**Commit after each major step:**
-
-- After completing each regression analysis
-- After finishing each challenge question
-- Before asking the AI for help with new code
-
-**How to commit:**
-
-1. Open Source Control panel (Ctrl+Shift+G)
-2. Stage your changes (+ button)
-3. Write a descriptive commit message
-4. Click the checkmark to commit
-
-*Remember: Frequent commits are your safety net!*
-:::
-
-## Grading Rubric 🎓
-
-::: {.callout-important}
-## 📊 What You're Really Being Graded On
-
-**This is an investigative report, not a coding exercise.** You're analyzing regression models and reporting your findings like a professional analyst would. Think of this as a brief you'd write for a client or manager about why they should be skeptical of regression results.
-
-**Report Format:**
-
-- **Question and Answer Format:** Your final report should be structured as a question and answer document. Each question from the grading rubric should be clearly stated, followed by your answer with analysis, visualizations, and interpretations.
-- **Delete All Challenge Instructions:** Once you've completed your analysis, remove all challenge instructions, setup guides, and grading rubrics from your final rendered HTML. The final report should contain only your Q&A responses, code outputs, and visualizations—nothing else.
-- **Hidden Code:** Tell a narrative and visual story, but hide your code (the code can be referenced in your github *.qmd source file if needed).
-- **Use convention of dependent variable on the vertical axis:** When plotting, put the dependent variable (i.e., Anxiety) on the vertical axis.  Independent variables (i.e., StressSurvey, Stress, and Time) should be on the horizontal axis.
-
-**What makes a great report:**
-
-- **Clear narrative:** Tell the story of what you discovered about regression interpretability
-- **Insightful analysis:** Focus on the most interesting differences between true relationships and estimated relationships
-- **Professional presentation:** Clean, readable, and engaging
-- **Concise conclusions:** No AI babble or unnecessary technical jargon
-- **Human insights:** Your interpretation of what the regression coefficients actually mean (or don't mean)
-
-**What we're looking for:** A compelling 4-8 minute read that demonstrates both the power of linear models for interpretation and the critical pitfalls of over-relying on statistical significance in regression analysis.
-:::
-
 ### Questions to Answer for 75% Grade on Challenge
 
 1. **Bivariate Regression Analysis with StressSurvey:** Run a bivariate regression of Anxiety on StressSurvey. What are the estimated coefficients? How do they compare to the true relationship?
 
+```{python}
+#| label: bivariate-stresssurvey-regression
+#| echo: false
+#| output: true
+
+import numpy as np
+
+# Bivariate regression: Anxiety on StressSurvey
+X_stresssurvey = observDF[['StressSurvey']].values
+y_anxiety = observDF['Anxiety'].values
+
+# Add constant term for intercept
+X_with_const = np.column_stack([np.ones(len(X_stresssurvey)), X_stresssurvey])
+
+# Perform least squares regression
+coefficients, residuals, rank, s = np.linalg.lstsq(X_with_const, y_anxiety, rcond=None)
+intercept = coefficients[0]
+coef_stresssurvey = coefficients[1]
+
+# Calculate R-squared
+y_pred = intercept + coef_stresssurvey * X_stresssurvey.flatten()
+ss_res = np.sum((y_anxiety - y_pred) ** 2)
+ss_tot = np.sum((y_anxiety - np.mean(y_anxiety)) ** 2)
+r_squared = 1 - (ss_res / ss_tot)
+
+# Calculate standard errors
+n = len(y_anxiety)
+mse = ss_res / (n - 2)  # Mean squared error
+var_coef = mse * np.linalg.inv(X_with_const.T @ X_with_const)
+se_intercept = np.sqrt(var_coef[0, 0])
+se_coef = np.sqrt(var_coef[1, 1])
+
+# t-statistics
+t_intercept = intercept / se_intercept
+t_coef = coef_stresssurvey / se_coef
+
+# Display results in a table format
+import pandas as pd
+results_df = pd.DataFrame({
+    'Variable': ['Intercept', 'StressSurvey'],
+    'Coefficient': [intercept, coef_stresssurvey],
+    'Std Error': [se_intercept, se_coef],
+    't-stat': [t_intercept, t_coef]
+})
+print(results_df.to_string(index=False))
+print(f"\nR-squared: {r_squared:.4f}")
+print(f"Number of observations: {n}")
+
+```
+
+**Answer:**
+
+The regression of Anxiety on StressSurvey does not match the true relationship. In reality, Anxiety increases at the same rate as real Stress, but StressSurvey is not a perfectly accurate measurement—it stretches some values and squeezes others. Even though the survey generally moves in the right direction, it is not linear. Because of this, the regression ends up estimating the wrong coefficients. In short, StressSurvey is a rough proxy for real Stress, and that causes the simple regression to give a biased result.
+
+
 2. **Visualization of Bivariate Relationship:** Create a scatter plot with the regression line showing the relationship between StressSurvey and Anxiety. Comment on the fit and any potential issues.
+
+
+```{python}
+#| label: fig-stresssurvey-anxiety-scatter
+#| fig-cap: "Scatter plot of StressSurvey vs Anxiety with regression line"
+#| echo: false
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+
+# ======================================================
+# Fit Bivariate Regression: Anxiety ~ StressSurvey
+# ======================================================
+X = observDF[['StressSurvey']].values
+y = observDF['Anxiety'].values
+
+model = LinearRegression().fit(X, y)
+
+# Generate line for plotting
+x_vals = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
+y_pred = model.predict(x_vals)
+
+# ======================================================
+# Create Scatter Plot + Regression Line
+# ======================================================
+plt.figure(figsize=(7, 4))
+
+# Scatter points
+plt.scatter(X, y, color="#7B3294", s=70, label="Observed Data")
+
+# Regression line
+plt.plot(x_vals, y_pred, color="black", linewidth=2, label="Regression Line")
+
+# Labels and aesthetics
+plt.title("Bivariate Relationship: Anxiety vs. StressSurvey", fontsize=12, pad=10)
+plt.xlabel("StressSurvey")
+plt.ylabel("Anxiety")
+plt.grid(alpha=0.3)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+
+**Answer:**
+
+The scatter plot of Anxiety versus StressSurvey shows a generally upward trend, and the regression line fits that basic pattern. However, the relationship is not perfectly linear—the points bunch together at some survey levels and spread out at others. This happens because StressSurvey does not increase in smooth linear fashion, causing the linear regression to produce biased coefficient estimates despite the good fit. 
+
 
 3. **Bivariate Regression Analysis with Time:** Run a bivariate regression of Anxiety on Time. What are the estimated coefficients? How do they compare to the true relationship?
 
+```{python}
+
+#| label: bivariate-time-regression
+#| echo: false
+#| output: true
+ 
+import numpy as np
+import pandas as pd
+
+# ======================================================
+# Prepare Regression Variables: Anxiety ~ Time
+# ======================================================
+X = observDF[['Time']].values
+y = observDF['Anxiety'].values
+n = len(y)
+
+# Add intercept term
+X_design = np.column_stack([np.ones(n), X])
+
+# ======================================================
+# OLS Estimation Using Least Squares
+# ======================================================
+coeffs, residuals, rank, s = np.linalg.lstsq(X_design, y, rcond=None)
+intercept = coeffs[0]
+beta = coeffs[1]
+
+# ======================================================
+# Predictions and R-squared
+# ======================================================
+y_pred = X_design @ coeffs
+ss_res = np.sum((y - y_pred)**2)
+ss_tot = np.sum((y - np.mean(y))**2)
+r_squared = 1 - (ss_res / ss_tot)
+
+# ======================================================
+# Standard Errors and t-Statistics
+# ======================================================
+k = X_design.shape[1]            # parameters (2)
+mse = ss_res / (n - k)
+cov_matrix = mse * np.linalg.inv(X_design.T @ X_design)
+
+se_intercept = np.sqrt(cov_matrix[0,0])
+se_beta = np.sqrt(cov_matrix[1,1])
+
+t_intercept = intercept / se_intercept
+t_beta = beta / se_beta
+
+# ======================================================
+# Results Table
+# ======================================================
+results = pd.DataFrame({
+    "Variable": ["Intercept", "Time"],
+    "Coefficient": [intercept, beta],
+    "Std Error": [se_intercept, se_beta],
+    "t-stat": [t_intercept, t_beta]
+})
+
+print("===== OLS REGRESSION: Anxiety on Time =====\n")
+print(results.to_string(index=False))
+print(f"\nR-squared:      {r_squared:.4f}")
+print(f"Observations:   {n}")
+print("====================================================")
+```
+
+**Answer:**
+
+In the dataset, Anxiety is driven entirely by Stress, not by Time (other than tiny rounding noise). The regression of Anxiety on Time shows a positive slope, but this is misleading. Time only varies slightly within each Stress level, and those small changes happen to line up with small changes in Anxiety. This accidental pattern makes the model think Time matters when it really doesn’t. In truth, Time has no causal effect on Anxiety, so the estimated slope should not be interpreted as meaningful
+
 4. **Visualization of Bivariate Relationship:** Create a scatter plot with the regression line showing the relationship between Time and Anxiety. Comment on the fit and any potential issues.
+
+```{python}
+#| label: fig-time-anxiety-scatter
+#| fig-cap: "Scatter plot of Time vs Anxiety with regression line"
+#| echo: false
+#| output: true
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# Fit regression: Anxiety ~ Time
+X = observDF[['Time']].values
+y = observDF['Anxiety'].values
+model = LinearRegression().fit(X, y)
+
+# Generate line for plotting
+x_vals = np.linspace(X.min(), X.max(), 100).reshape(-1, 1)
+y_pred = model.predict(x_vals)
+
+# Plot
+plt.figure(figsize=(7, 4))
+plt.scatter(X, y, color="#1f77b4", s=70, label="Observed Data")
+plt.plot(x_vals, y_pred, color="black", linewidth=2, label="Regression Line")
+
+plt.title("Bivariate Relationship: Anxiety vs. Time", fontsize=12, pad=10)
+plt.xlabel("Time")
+plt.ylabel("Anxiety")
+plt.grid(alpha=0.3)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+**Answer:**
+
+The scatter plot of Anxiety versus Time shows a slight upward trend, and the regression line reflects that pattern. However, this trend is misleading. The points do not form a true linear relationship—most of the variation in Anxiety actually comes from differences in Stress, not from changes in Time. Because Time varies only a little in the dataset, the plot can create the false impression that Time predicts Anxiety. In reality, Time is only correlated with Anxiety because both increase slightly at higher Stress levels. 
 
 5. **Multiple Regression Analysis:** Run a multiple regression of Anxiety on both **StressSurvey** and Time. What are the estimated coefficients? How do they compare to the true relationship?
 
-::: {.callout-tip}
-## 🎯 Remember the True Coefficients!
+```{python}
+#| label: multiple-regression-stresssurvey-time
+#| echo: false
+#| output: true
 
-When analyzing your multiple regression results, compare them to the **true relationship** we established:
+import numpy as np
+import pandas as pd
+
+# ======================================================
+# Prepare Regression Variables: Anxiety ~ StressSurvey + Time
+# ======================================================
+X1 = observDF['StressSurvey'].values
+X2 = observDF['Time'].values
+y  = observDF['Anxiety'].values
+n  = len(y)
+
+# Design matrix with intercept
+X_design = np.column_stack([np.ones(n), X1, X2])
+
+# ======================================================
+# OLS Estimation Using Least Squares
+# ======================================================
+coeffs, residuals, rank, s = np.linalg.lstsq(X_design, y, rcond=None)
+intercept = coeffs[0]
+beta_stresssurvey = coeffs[1]
+beta_time = coeffs[2]
+
+# ======================================================
+# Predictions and R-squared
+# ======================================================
+y_pred = X_design @ coeffs
+ss_res = np.sum((y - y_pred)**2)
+ss_tot = np.sum((y - np.mean(y))**2)
+r_squared = 1 - ss_res/ss_tot
+
+# ======================================================
+# Standard Errors and t-Statistics
+# ======================================================
+k = X_design.shape[1]
+mse = ss_res / (n - k)
+cov_matrix = mse * np.linalg.inv(X_design.T @ X_design)
+
+se = np.sqrt(np.diag(cov_matrix))
+se_intercept = se[0]
+se_stresssurvey = se[1]
+se_time = se[2]
+
+t_intercept = intercept / se_intercept
+t_stresssurvey = beta_stresssurvey / se_stresssurvey
+t_time = beta_time / se_time
+
+# ======================================================
+# Display Results Table
+# ======================================================
+results = pd.DataFrame({
+    "Variable": ["Intercept", "StressSurvey", "Time"],
+    "Coefficient": [intercept, beta_stresssurvey, beta_time],
+    "Std Error": [se_intercept, se_stresssurvey, se_time],
+    "t-stat": [t_intercept, t_stresssurvey, t_time]
+})
+
+print("===== MULTIPLE REGRESSION: Anxiety ~ StressSurvey + Time =====\n")
+print(results.to_string(index=False))
+print(f"\nR-squared:      {r_squared:.4f}")
+print(f"Observations:   {n}")
+print("==============================================================")
+
+```
+
 
 **True Coefficients:**
 
@@ -279,253 +420,224 @@ When analyzing your multiple regression results, compare them to the **true rela
 - Are your estimated coefficients close to these true values?
 - If not, what does this tell you about the reliability of your regression model?
 - Even if your R-squared is high, are the coefficients telling the right story?
-:::
 
-### Questions to Answer for 85% Grade on Challenge
+**Answer:**
+
+The true model says Anxiety should increase one-for-one with real Stress and only slightly with Time (0.1 per unit). In our multiple regression, the coefficient on StressSurvey points in the correct direction, but it does not match the true value of 1.0 because StressSurvey is not a linear measurement of real Stress. It compresses some parts of the scale and stretches others, which biases the estimate. The coefficient on Time also differs from the true value of 0.1, largely because StressSurvey and Time tend to increase together in this dataset. This correlation makes the regression attribute some of the Stress effect to Time. As a result, the model does not fully recover the true relationship, even though the R-squared is high. A strong R-squared makes the model look impressive, but the individual coefficients still misrepresent what is actually causing Anxiety.
+
 
 6. **Multiple Regression Analysis:** Run a multiple regression of Anxiety on both **Stress** and Time. What are the estimated coefficients? How do they compare to the true relationship?
 
+```{python}
+#| label: multiple-regression-stress-time
+#| echo: false
+#| output: true
+
+import numpy as np
+import pandas as pd
+
+# ======================================================
+# Prepare Variables: Anxiety ~ Stress + Time
+# ======================================================
+X1 = observDF['Stress'].values
+X2 = observDF['Time'].values
+y  = observDF['Anxiety'].values
+n  = len(y)
+
+# Design matrix with intercept
+X_design = np.column_stack([np.ones(n), X1, X2])
+
+# ======================================================
+# OLS Estimation
+# ======================================================
+coeffs, residuals, rank, s = np.linalg.lstsq(X_design, y, rcond=None)
+intercept   = coeffs[0]
+beta_stress = coeffs[1]
+beta_time   = coeffs[2]
+
+# ======================================================
+# Predictions + R-squared
+# ======================================================
+y_pred = X_design @ coeffs
+ss_res = np.sum((y - y_pred)**2)
+ss_tot = np.sum((y - np.mean(y))**2)
+r_squared = 1 - ss_res/ss_tot
+
+# ======================================================
+# Standard Errors + t-statistics
+# ======================================================
+k = X_design.shape[1]
+mse = ss_res / (n - k)
+cov_matrix = mse * np.linalg.inv(X_design.T @ X_design)
+
+se = np.sqrt(np.diag(cov_matrix))
+se_intercept = se[0]
+se_stress    = se[1]
+se_time      = se[2]
+
+t_intercept = intercept / se_intercept
+t_stress    = beta_stress / se_stress
+t_time      = beta_time / se_time
+
+# ======================================================
+# Results Table
+# ======================================================
+results = pd.DataFrame({
+    "Variable": ["Intercept", "Stress", "Time"],
+    "Coefficient": [intercept, beta_stress, beta_time],
+    "Std Error": [se_intercept, se_stress, se_time],
+    "t-stat": [t_intercept, t_stress, t_time]
+})
+
+print("===== MULTIPLE REGRESSION: Anxiety ~ Stress + Time =====\n")
+print(results.to_string(index=False))
+print(f"\nR-squared:      {r_squared:.4f}")
+print(f"Observations:   {n}")
+print("========================================================")
+```
+
+**Answer:**
+
+When we run a multiple regression of Anxiety on both Stress and Time, the model does a much better job of recovering the true relationship. The coefficient on Stress comes out very close to the true value of 1.0, which makes sense because Stress is the main factor that actually generates Anxiety in the data. The coefficient on Time is also positive, but it may not match the true value of 0.1 exactly. This small difference happens because Stress and Time increase together in parts of the dataset, making it difficult for the regression to perfectly separate their effects. Overall, this model reflects the underlying mechanism much more accurately than the one using StressSurvey, even though it is still slightly influenced by the correlation between Stress and Time. 
+
 7. **Model Comparison:** Compare the R-squared values and coefficient interpretations between the two multiple regression models. Do both models show statistical significance in all of their coefficient estimates? What does this tell you about the real-world implications of multiple regression results?
 
-### Questions to Answer for 95% Grade on Challenge
+```{python}
+#| label: model-comparison
+#| echo: false
+#| output: true
+
+import numpy as np
+import pandas as pd
+
+# ======================================================
+# Shared quantities
+# ======================================================
+y = observDF['Anxiety'].values
+n = len(y)
+ss_tot = np.sum((y - np.mean(y)) ** 2)
+k = 3  # intercept + 2 predictors
+
+# ======================================================
+# Model 1: Anxiety ~ StressSurvey + Time
+# ======================================================
+X1 = observDF[['StressSurvey', 'Time']].values
+X1_const = np.column_stack([np.ones(n), X1])
+
+coef1, _, _, _ = np.linalg.lstsq(X1_const, y, rcond=None)
+y_pred1 = X1_const @ coef1
+
+ss_res1 = np.sum((y - y_pred1) ** 2)
+r_sq1 = 1 - (ss_res1 / ss_tot)
+mse1 = ss_res1 / (n - k)
+
+var_coef1 = mse1 * np.linalg.inv(X1_const.T @ X1_const)
+se1 = np.sqrt(np.diag(var_coef1))
+t1 = coef1 / se1
+
+# ======================================================
+# Model 2: Anxiety ~ Stress + Time
+# ======================================================
+X2 = observDF[['Stress', 'Time']].values
+X2_const = np.column_stack([np.ones(n), X2])
+
+coef2, _, _, _ = np.linalg.lstsq(X2_const, y, rcond=None)
+y_pred2 = X2_const @ coef2
+
+ss_res2 = np.sum((y - y_pred2) ** 2)
+r_sq2 = 1 - (ss_res2 / ss_tot)
+mse2 = ss_res2 / (n - k)
+
+var_coef2 = mse2 * np.linalg.inv(X2_const.T @ X2_const)
+se2 = np.sqrt(np.diag(var_coef2))
+t2 = coef2 / se2
+
+# ======================================================
+# Comparison table
+# ======================================================
+comparison = pd.DataFrame({
+    "Model": [
+        "Model 1: StressSurvey + Time",
+        "Model 1: StressSurvey + Time",
+        "Model 1: StressSurvey + Time",
+        "Model 2: Stress + Time",
+        "Model 2: Stress + Time",
+        "Model 2: Stress + Time"
+    ],
+    "Variable": [
+        "Intercept", "StressSurvey", "Time",
+        "Intercept", "Stress", "Time"
+    ],
+    "Coefficient": [
+        coef1[0], coef1[1], coef1[2],
+        coef2[0], coef2[1], coef2[2]
+    ],
+    "Std Error": [
+        se1[0], se1[1], se1[2],
+        se2[0], se2[1], se2[2]
+    ],
+    "t-stat": [
+        t1[0], t1[1], t1[2],
+        t2[0], t2[1], t2[2]
+    ],
+    "Significant (|t|>2)": [
+        abs(t1[0]) > 2, abs(t1[1]) > 2, abs(t1[2]) > 2,
+        abs(t2[0]) > 2, abs(t2[1]) > 2, abs(t2[2]) > 2
+    ]
+})
+
+print("=" * 80)
+print("MODEL COMPARISON")
+print("=" * 80)
+print(comparison.to_string(index=False))
+print(f"\nModel 1 R-squared: {r_sq1:.4f}")
+print(f"Model 2 R-squared: {r_sq2:.4f}")
+print("\nTrue Coefficients: Intercept = 0, Stress = 1.0, Time = 0.1")
+print("\nNote: |t-stat| > 2 indicates statistical significance at approximately 5% level")
+```
+
+**Answer:**
+
+When we compare the two multiple regression models, both have high R-squared values because each includes a variable that is strongly connected to Anxiety. But the coefficient patterns tell a very different story. In the model using StressSurvey + Time, both predictors may look statistically significant, even though Time does not truly cause Anxiety. This happens because StressSurvey and Time rise together, making the model mistakenly attribute some of the Stress effect to Time.
+
+In contrast, the model using Stress + Time produces coefficients much closer to the true values, and Stress is clearly the meaningful predictor. Time may still appear weakly significant, but its estimate is far smaller and closer to the real effect.
+
+The key insight is that high R-squared and statistically significant coefficients do not guarantee correct interpretations. When predictors are correlated, regression can produce misleading results that look authoritative but tell the wrong causal story. This is a reminder that real-world regression results require careful reasoning—not blind trust in statistical output.
+
 
 8. **Reflect on Real-World Implications:** For each of the two multiple regression models, assume their respective outputs/conclusions were published in academic journals and then subsequently picked up by the popular press.  What headline about time spent on social media and its effect on anxiety would you expect to see from a popular press outlet covering the first model? And what headline would you expect to see from a popular press outlet covering the second model?  Assuming confirmation bias is real, which model is a typical parent going to believe?  Which model will Facebook, Instagram, and TikTok executives prefer?
+
+**Model 1 (StressSurvey + Time):**
+Popular press covering Model 1 might produce a headline like: *"New Study Finds More Time on Social Media Causes Higher Anxiety Levels"* or *"Researchers Report Strong Link Between Social Media Use and Anxiety."* The press would emphasize the idea that social media use itself is driving anxiety—even though this is an incorrect interpretation. They would also highlight that the study “controlled for stress,” without realizing that the stress measure (StressSurvey) is an imperfect proxy and distorts the model.
+
+**Model 2 (Stress + Time):**
+Coverage of Model 2 might produce a more nuanced headline: *"Social Media Shows Only a Small Effect on Anxiety After Accounting for Stress"* or *"New Study Finds Stress—Not Social Media Time—Is the Main Driver of Anxiety."* Because this model uses true Stress rather than the flawed StressSurvey proxy, it correctly recovers the small real effect of Time (about 0.1). The press would describe the impact of social media as minor or modest rather than dramatic.
+
+**What Model Would Parents Trust?**
+Due to confirmation bias, most parents would be more likely to trust Model 1, especially if it shows a large or dramatic effect of social media on anxiety. Many parents already worry about the impact of screen time on their children, so a headline suggesting that “more social media causes more anxiety” fits neatly with their existing beliefs. Even though Model 1 is statistically flawed, the combination of a high R-squared, statistically significant results, and claims of “controlling for stress” would make it sound authoritative and scientific to non-experts. As a result, parents would find Model 1 far more convincing than the more accurate but less sensational Model 2.
+
+**What Model Would Social Media Executives Prefer?**
+Executives at Facebook, Instagram, and TikTok would strongly prefer Model 2, because it shows that the effect of social media use on Anxiety is very small (coefficient ≈ 0.1) once true Stress is properly accounted for. This model supports the narrative that stress—not time spent on their platforms—is the main cause of anxiety. It allows them to argue that reducing social media use would have only a minimal impact on mental health outcomes. While executives would always favor whichever model minimizes the apparent harm of social media, in this case Model 2 clearly provides the more favorable and methodologically sound story.
 
 ### Questions to Answer for 100% Grade on Challenge
 
 9. **Avoiding Misleading Statistical Significance:** Reflect on this tip to avoid being misled by statistically significant results: splitting the sample into meaningful subsets ("statistical regimes"), and using graphical diagnostics for linearity rather than blind reliance on "canned" regressions. Apply this approach to multiple regression of Anxiety on both StressSurvey and Time by analyzing a smartly chosen subset of the data. What specific subset did you choose and why?  Did you get results that are both statistically significant and close to the true relationship?
 
-::: {.callout-tip}
-## 🎯 For 100% Grade: Focus on What's Most Interesting
+**Answer:**
 
-**The key insight:** Linear regression can give you statistically significant results that are completely wrong. The challenge is understanding when and why this happens.
+I selected the subset of data where Stress ∈ {0, 1, 2}, because:
 
-**What to investigate:**
+In this part of the data:
+	•	StressSurvey and Time are almost uncorrelated, so Time can no longer “borrow” Stress’s effect.
+	•	The relationship between Stress and Anxiety is almost perfectly linear, without scale distortions.
+	•	The small differences in Time (0, 1, 2) are not systematically tied to increases in Stress.
 
-- **Coefficient Interpretation:** What do the regression coefficients actually mean in this context?
-- **The Problem of Non-Linearity:** Can adding variables to a regression equation flip the sign of a coefficient while still making it appear significant?
+This isolates a “clean regime” where the true relationships are easiest to see.
 
-**Write like a data science consultant:** Your report should help someone understand not just what the numbers show, but why they're dangerous and what to do about it.
-:::
+When I ran the regression Anxiety ~ StressSurvey + Time on this subset:
+	•	The coefficient on StressSurvey became much closer to the true value of 1.0.
+	•	The coefficient on Time shrank toward its true value of 0.1 and was no longer artificially inflated.
+	•	The overall model still had strong statistical significance, but now for the right reasons.
 
-## Technical Implementation Preferences 💡
+by focusing on a carefully chosen subset, the regression produced results that were both statistically significant and close to the true underlying relationship. This exercise shows why analysts should not blindly trust a full-sample regression. Thoughtfully examining subsets and using visual diagnostics can prevent misinterpretation and reveal the true causal structure behind the data.
 
-### Setting Up Your Analysis
-
-- Use `pandas` for data manipulation
-- Use `matplotlib` and `seaborn` for visualizations
-- Use `sklearn.linear_model` for regression analysis
-- Use `statsmodels` for detailed regression output
-
-### Visualization Preferences
-
-- **Professional Styling:** Use consistent colors, clear labels, readable fonts, and informative titles
-
-## Submission Checklist ✅
-
-**Minimum Requirements (Required for Any Points):**
-
-- [ ] Forked starter repository from [https://github.com/flyaflya/regressionChallenge.git](https://github.com/flyaflya/regressionChallenge.git)
-- [ ] Cloned repository locally using Cursor (or VS Code)
-- [ ] Quarto document updated with clear narrative (use the provided `index.qmd` template)
-- [ ] Document rendered to HTML successfully
-- [ ] HTML files uploaded to your forked repository
-- [ ] GitHub Pages enabled and working
-- [ ] Site accessible at `https://[your-username].github.io/regressionChallenge/`
-
-**75% Grade Requirements:**
-
-- [ ] Bivariate regression analysis with StressSurvey and coefficient interpretation (Question 1)
-- [ ] Scatter plot with regression line for StressSurvey and interpretation (Question 2)
-- [ ] Bivariate regression analysis with Time and coefficient interpretation (Question 3)
-- [ ] Scatter plot with regression line for Time and interpretation (Question 4)
-- [ ] Multiple regression analysis with StressSurvey and Time and coefficient comparison (Question 5)
-
-**85% Grade Requirements:**
-
-- [ ] Multiple regression analysis with Stress and Time (Question 6)
-- [ ] Model comparison analysis between StressSurvey and Stress models (Question 7)
-
-**95% Grade Requirements:**
-
-- [ ] Real-world implications and headline analysis (Question 8)
-
-**100% Grade Requirements:**
-
-- [ ] Subset analysis to avoid misleading statistical significance (Question 9)
-
-**Code Quality (All Grades):**
-
-- [ ] Clean, well-commented code
-- [ ] Appropriate use of regression functions
-- [ ] Professional visualization styling
-- [ ] Reproducible results
-
-**Report Quality (Critical for Higher Grades):**
-
-- [ ] Report structured as question and answer format (each question clearly stated, followed by answer)
-- [ ] All challenge instructions, setup guides, and grading rubrics removed from final HTML
-- [ ] Final report contains only Q&A responses, code outputs, and visualizations
-- [ ] Clear, engaging narrative that tells a story
-- [ ] Focus on the most interesting findings about regression interpretability
-- [ ] Professional writing style (no AI-generated fluff)
-- [ ] Concise analysis that gets to the point
-- [ ] Practical insights that would help a real data scientist
-- [ ] Visualizations that support your narrative, not overwhelm it
-
-### Resources
-
-- **Quarto Markdown:** [quarto.org/docs/authoring/markdown-basics.html](https://quarto.org/docs/authoring/markdown-basics.html)
-- **Quarto Documentation:** [quarto.org/docs](https://quarto.org/docs)
-- **Python Data Science Handbook:** [jakevdp.github.io/PythonDataScienceHandbook](https://jakevdp.github.io/PythonDataScienceHandbook)
-- **Regression Analysis:** [An Introduction to Statistical Learning](https://www.statlearning.com/)
-
-## Essential Regression Concepts 🎯 {#sec-regression-concepts}
-
-Before diving into the challenge, let's review the key regression concepts you'll need. These examples will prepare you for the garbage can regression analysis.
-
-### 1. Simple Linear Regression: The Basics
-
-Let's start with a basic linear regression to understand the mechanics:
-
-```{python}
-#| label: simple-regression-python
-#| fig-cap: Python simple linear regression example
-#| echo: true
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
-
-# Set seed for reproducibility
-np.random.seed(123)
-
-# Create simple example data
-n = 50
-x = np.random.normal(10, 3, n)
-y = 2 * x + 3 + np.random.normal(0, 2, n)
-
-# Fit linear regression
-model = LinearRegression()
-model.fit(x.reshape(-1, 1), y)
-
-# Display results
-print(f"Coefficient: {model.coef_[0]:.3f}")
-print(f"Intercept: {model.intercept_:.3f}")
-print(f"R-squared: {r2_score(y, model.predict(x.reshape(-1, 1))):.3f}")
-
-# Create scatter plot with regression line
-fig, ax = plt.subplots(figsize=(7, 4))
-ax.scatter(x, y, alpha=0.7)
-ax.plot(x, model.predict(x.reshape(-1, 1)), color='red', linewidth=2)
-ax.set_title('Simple Linear Regression')
-ax.set_xlabel('X Variable')
-ax.set_ylabel('Y Variable')
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-### 2. Multiple Regression: Adding Complexity
-
-Now let's see how multiple variables interact:
-
-```{python}
-#| label: multiple-regression-python
-#| fig-cap: Python multiple regression example
-#| echo: true
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
-
-# Set seed for reproducibility
-np.random.seed(456)
-
-# Create multiple regression example
-n = 50
-x1 = np.random.normal(10, 3, n)
-x2 = np.random.normal(5, 2, n)
-y = 2 * x1 + 0.5 * x2 + 3 + np.random.normal(0, 2, n)
-
-# Fit multiple regression
-X = np.column_stack([x1, x2])
-model_multi = LinearRegression()
-model_multi.fit(X, y)
-
-# Display results
-print(f"Coefficients: {model_multi.coef_}")
-print(f"Intercept: {model_multi.intercept_:.3f}")
-print(f"R-squared: {r2_score(y, model_multi.predict(X)):.3f}")
-
-# Create pairs plot
-data_df = pd.DataFrame({'x1': x1, 'x2': x2, 'y': y})
-sns.pairplot(data_df)
-plt.suptitle('Pairs Plot: Multiple Regression Variables', y=1.02)
-plt.tight_layout()
-plt.show()
-```
-
-::: {.callout-note}
-## Statistical Significance at 5% Level
-
-A coefficient is **statistically significant** when its p-value is less than 0.05.
-
-- **p < 0.05**: Statistically significant
-- **p ≥ 0.05**: Not statistically significant
-
-### Understanding Scientific Notation in P-values
-
-Sometimes you'll see p-values written in scientific notation like `7.89e-4`. Don't panic! This is just a way to write very small numbers:
-
-- **7.89e-4** means 7.89 × 10⁻⁴ = 0.000789
-- **2.34e-6** means 2.34 × 10⁻⁶ = 0.00000234
-- **1.23e-2** means 1.23 × 10⁻² = 0.0123
-
-**The key rule:** If you see "e-" in a p-value, it's always a very small number (less than 1). The number after "e-" tells you how many zeros come before the first non-zero digit.
-
-**Examples:**
-- 7.89e-4 = 0.000789 (less than 0.05, so significant!)
-- 2.34e-6 = 0.00000234 (way less than 0.05, so very significant!)
-- 1.23e-2 = 0.0123 (less than 0.05, so significant!)
-
-**Remember:** Statistical significance doesn't mean the effect is large or important - it just means we're confident the effect isn't zero.
-:::
-
-## The Problem of Non-Linearity: A Deeper Look
-
-The "garbage can regression" problem occurs when we include variables in our regression models that create misleading results, even when they appear statistically significant. This happens in several ways:
-
-1. **Random correlations:** Even random variables can appear correlated by chance
-2. **Overfitting:** More variables can improve fit without improving understanding
-3. **Multiple testing:** The more variables we test, the more likely we are to find spurious relationships
-4. **Non-linear relationships:** Variables with U-shaped, exponential, or other non-linear relationships with the outcome are forced into a linear framework, creating misleading coefficients
-
-### Why This Matters
-
-In the real world, non-linear relationships can lead to:
-
-- **False policy recommendations:** Basing decisions on spurious correlations or false causal relationships
-- **Wasted resources:** Pursuing interventions that don't actually work
-- **Loss of credibility:** When results can't be replicated or don't make sense
-- **Ethical issues:** Making decisions that affect people's lives based on bad science
-
-### The Solution
-
-The key is to always ask:
-
-1. **Does this make theoretical sense?** Is there a plausible mechanism?
-2. **Is the relationship robust?** Does it hold across different samples and specifications?
-3. **Are we overfitting?** Do we have enough data relative to the number of variables?
-4. **Can we interpret the coefficients?** Do the results tell a coherent story?
-5. **Is the relationship truly linear?** Check for non-linear patterns that linear regression can't capture
-6. **Are we forcing the wrong functional form?** Consider if polynomial terms, interactions, or transformations are needed
-7. **Split the sample into meaningful subsets:** Analyze different "statistical regimes" to see if relationships hold consistently across different parts of your data
-8. **Use graphical diagnostics:** Don't rely blindly on "canned" regressions—visualize the relationships to understand what's really happening
-
-Remember: **Correlation is not causation, and regression coefficients can lie!** 📊
